@@ -1,0 +1,181 @@
+package com.mymod;
+
+import com.mymod.worldgen.mymodWorldGen;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraftforge.common.util.EnumHelper;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
+
+	@Mod(modid = mymod.modid, version = mymod.version)
+	public class mymod {
+	
+	public static final String modid = "mymod";
+	public static final String version = "1.0";
+	
+	@Instance(modid)
+	public static mymod instance;
+	
+	
+	/**
+	 * DECLARATION SECTION 
+	 * ***********************************************************/
+
+
+    //  DECLARE THE ITEM
+        public static Item myitem_1;
+        
+        //  DECLARE NEW TOOL MATERIAL
+        //name, harvestLevel, maxUses, efficiencyF, damageF, enchantability
+public static ToolMaterial mytoolmaterial = EnumHelper.addToolMaterial("new stuff", 2, 750, 6.0F, 4.0F, 26);
+	
+//  DECLARE NEW TOOL MATERIAL
+//name, harvestLevel, maxUses, efficiencyF, damageF, enchantability
+public static ToolMaterial swurd_material = EnumHelper.addToolMaterial("swurd material", 5, 4000, 12.0F, -12.0F, 40);
+
+//name, harvestLevel, maxUses, efficiencyF, damageF, enchantability
+public static ToolMaterial throwingswurd_material = EnumHelper.addToolMaterial("throwingswurd material", 5, 40000, 20.0F, 20.0F, 400);
+
+//  DECLARE THE PICKAXE 
+    public static Item mypickaxe_1;
+//  DECLARE THE SWORD 
+    public static Item throwingswurd;
+    public static Item EntityBlasterBolt;
+//  DECLARE THE ORE
+    public static Block myore_1;
+    public static Block myore_2;
+    public static Item summoner;
+    public static Item swurd;
+    public static Item mysword_1;
+    public static Item bomb;
+    
+    
+   
+
+
+	/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */	
+    
+	
+	@EventHandler
+	public void PreInit(FMLPreInitializationEvent preEvent){		
+		
+	
+		
+	/**
+	* INITIALIZATION SECTION   setUnlocalizedName("")
+	* *********************************************************** */ 
+
+
+		
+		 //  LOAD THE ITEM
+        myitem_1 = new Item().setUnlocalizedName("myitem_1").setCreativeTab(CreativeTabs.tabMisc).setTextureName(modid + ":" + "myitem_1");
+        GameRegistry.registerItem(myitem_1, "myitem_1");
+        LanguageRegistry.addName(myitem_1, "My Thing");
+        summoner = new Item().setUnlocalizedName("summoner").setCreativeTab(CreativeTabs.tabMisc).setTextureName(modid + ":" + "summoner");
+        GameRegistry.registerItem(summoner, "summoner");
+        LanguageRegistry.addName(summoner,"summoner");
+        //  LOAD THE PICKAXE
+        mypickaxe_1 = new Item().setUnlocalizedName("mypickaxe_1").setCreativeTab(CreativeTabs.tabTools).setTextureName(modid + ":" + "mypickaxe_1");
+        GameRegistry.registerItem(mypickaxe_1, "mypickaxe_1");
+        LanguageRegistry.addName(mypickaxe_1, "DumbPick");
+        mysword_1 = new mysword_1(mytoolmaterial).setCreativeTab(CreativeTabs.tabCombat).setTextureName(modid + ":" + "mysword_1");
+        GameRegistry.registerItem(mysword_1, "mysword_1");
+        LanguageRegistry.addName(mysword_1, "Swurd");    
+     
+
+        //  LOAD THE ORE GENERATION 
+            mymodWorldGen eventWorldGen = new mymodWorldGen();
+            GameRegistry.registerWorldGenerator(eventWorldGen, 0); 
+        //  LOAD THE ORE 
+            myore_1 = new myore_1(Material.rock).setBlockName("myore_1").setCreativeTab(CreativeTabs.tabBlock).setBlockTextureName(modid + ":" + "myore_1");
+            GameRegistry.registerBlock(myore_1, "myore_1");
+            LanguageRegistry.addName(myore_1, "X-Ray Stuff");
+        //  LOAD THE SWORD
+            throwingswurd = new throwingswurd( throwingswurd_material).setUnlocalizedName("ThrowingSword").setCreativeTab(CreativeTabs.tabCombat).setTextureName(modid + ":" + "throwingswurd");
+            GameRegistry.registerItem(throwingswurd, "throwingswurd");
+            LanguageRegistry.addName(throwingswurd, "BoomStick");
+            
+            
+            EntityBlasterBolt = new Item().setUnlocalizedName("EntityBlasterBolt").setTextureName(modid + ":" + "EntityBlasterBolt");
+            GameRegistry.registerItem(EntityBlasterBolt, "EntityBlasterBolt");
+            LanguageRegistry.addName(EntityBlasterBolt, "BlasterBolt");
+        //  LOAD THE ORE 
+            myore_2 = new myore_1(Material.rock).setBlockName("myore_2").setCreativeTab(CreativeTabs.tabDecorations).setBlockTextureName(modid + ":" + "myore_2");
+            GameRegistry.registerBlock(myore_2, "myore_2");
+            LanguageRegistry.addName(myore_2, "TV");
+            bomb = new Item().setUnlocalizedName("EntityBlasterBolt").setTextureName(modid + ":" + "EntityBlasterBolt");
+            GameRegistry.registerItem(EntityBlasterBolt, "EntityBlasterBolt");
+            LanguageRegistry.addName(EntityBlasterBolt, "BlasterBolt");
+	}
+  
+
+	/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+	
+
+
+	@EventHandler
+	public void Init(FMLInitializationEvent event){
+		
+	/**
+	* RECIPES SECTION 
+	* *********************************************************** */
+		
+		
+		
+	//  ITEM RECIPE  
+        GameRegistry.addRecipe(new ItemStack(myitem_1, 1), new Object[] { 
+                "CRC", "RCR", "CRC", 
+                Character.valueOf('C'), Items.coal,
+                Character.valueOf('R'), Items.redstone
+            });
+        //  PICKAXE RECIPE  
+        GameRegistry.addRecipe(new ItemStack(mypickaxe_1, 1), new Object[] { 
+                "III", " S ", " S ", 
+                Character.valueOf('I'), Items.apple,
+                Character.valueOf('S'), Items.stick
+            });
+            
+        //  PICKAXE RECIPE  
+        GameRegistry.addRecipe(new ItemStack(throwingswurd, 1), new Object[] { 
+            "   ", "SSS", "   ", 
+            Character.valueOf('S'),Items.iron_ingot
+        });
+    //  PICKAXE RECIPE  
+        GameRegistry.addRecipe(new ItemStack(EntityBlasterBolt, 1), new Object[] { 
+            " S ", "SSS", " S ", 
+            Character.valueOf('S'), Items.snowball});}
+        
+       
+        
+  
+	
+	
+	/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+	
+	
+	@EventHandler
+	public void PostInit(FMLPostInitializationEvent postEvent)
+	{
+		
+
+	}	
+	
+}
+	
+		
+
+	
+	
